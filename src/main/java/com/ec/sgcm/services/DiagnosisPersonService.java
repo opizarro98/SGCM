@@ -9,11 +9,11 @@ public interface DiagnosisPersonService {
 
     DiagnosisPerson createNewDiagnosisPerson(DiagnosisPerson DiagnosisPerson);
 
-    DiagnosisPerson updateDiagnosisPerson(DiagnosisPerson DiagnosisPerson);
+    DiagnosisPerson updateDiagnosisPerson(DiagnosisPersonsIDDTO DiagnosisPerson);
 
     List<DiagnosisPerson> getAllDiagnosisPerson();
 
-    DiagnosisPerson getDiagnosisPersonByPersonId(Long idPerson);
+    DiagnosisPersonsIDDTO getDiagnosisPersonByPersonId(Long idPerson);
 
     DiagnosisPersonsIDDTO getDiagnosisPersonByPersonIdwithCategory(Long idPerson);
 

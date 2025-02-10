@@ -13,6 +13,7 @@ import com.ec.sgcm.repository.CategorieCIERepo;
 import com.ec.sgcm.repository.DiagnosisPersonRepo;
 import com.ec.sgcm.repository.PersonRepo;
 import com.ec.sgcm.services.DiagnosisPersonService;
+import com.ec.sgcm.services.mappers.DiagnosisMapper;
 
 @Service
 public class DiagnosisPersonServiceImpl implements DiagnosisPersonService {
@@ -32,9 +33,10 @@ public class DiagnosisPersonServiceImpl implements DiagnosisPersonService {
     }
 
     @Override
-    public DiagnosisPerson updateDiagnosisPerson(DiagnosisPerson diagnosisPerson) {
-        DiagnosisPerson finDiagnosis = diagnosisPersonRepo.findByIdPerson(diagnosisPerson.getPerson());
-        finDiagnosis.setDiagnosisCIE(diagnosisPerson.getDiagnosisCIE());
+    public DiagnosisPerson updateDiagnosisPerson(DiagnosisPersonsIDDTO diagnosisPerson) {
+        DiagnosisPerson finDiagnosis = diagnosisPersonRepo
+                .findByIdPerson(diagnosisPerson.getDiagnosisPerson().getPerson());
+        finDiagnosis.setDiagnosisCIE(diagnosisPerson.getDiagnosisPerson().getDiagnosisCIE());
         return diagnosisPersonRepo.save(finDiagnosis);
     }
 
@@ -45,25 +47,42 @@ public class DiagnosisPersonServiceImpl implements DiagnosisPersonService {
     }
 
     @Override
-    public DiagnosisPerson getDiagnosisPersonByPersonId(Long idPerson) {
+    public DiagnosisPersonsIDDTO getDiagnosisPersonByPersonId(Long idPerson) {
         Persons person = personRepo.findById(
                 idPerson)
                 .orElseThrow(() -> new IllegalArgumentException("No se encontró la persona con el ID: " + idPerson));
-        return diagnosisPersonRepo.findByIdPerson(person);
+        // Buscar el diagnóstico asociado a la persona
+        DiagnosisPerson diagnosisPerson = diagnosisPersonRepo.findByIdPerson(person);
+
+        if (diagnosisPerson == null) {
+            throw new IllegalArgumentException("No se encontró diagnóstico para la persona con ID: " + idPerson);
+        }
+
+        // Obtener la categoría del diagnóstico
+        CategoriesCIE category = diagnosisPerson.getDiagnosisCIE().getCategory();
+
+        // Mapear y devolver el DTO
+        return DiagnosisMapper.DiagnosistoDTOCategory(diagnosisPerson, category);
     }
 
     @Override
     public DiagnosisPersonsIDDTO getDiagnosisPersonByPersonIdwithCategory(Long idPerson) {
-        Persons person = personRepo.findById(
-                idPerson)
+        // Buscar la persona por su ID
+        Persons person = personRepo.findById(idPerson)
                 .orElseThrow(() -> new IllegalArgumentException("No se encontró la persona con el ID: " + idPerson));
-        DiagnosisPerson updateDiagnosis = diagnosisPersonRepo.findByIdPerson(person);
-        CategoriesCIE updateCategory = categorieCIERepo
-                .findByID(updateDiagnosis.getDiagnosisCIE().getCategory().getId());
-        // return updateDiagnosis.stream()
-        // .map(AppointmentMapper::toDTO)
-        // .collect(Collectors.toList());
-        return null;
+
+        // Buscar el diagnóstico asociado a la persona
+        DiagnosisPerson diagnosisPerson = diagnosisPersonRepo.findByIdPerson(person);
+
+        if (diagnosisPerson == null) {
+            throw new IllegalArgumentException("No se encontró diagnóstico para la persona con ID: " + idPerson);
+        }
+
+        // Obtener la categoría del diagnóstico
+        CategoriesCIE category = diagnosisPerson.getDiagnosisCIE().getCategory();
+
+        // Mapear y devolver el DTO
+        return DiagnosisMapper.DiagnosistoDTOCategory(diagnosisPerson, category);
     }
 
     @Override

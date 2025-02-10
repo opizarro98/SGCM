@@ -12,4 +12,6 @@ public interface DiagnosisCIEService {
     List<DiagnosisCIEDTO> searchAllDIagnosis();
 
     DiagnosisCIE searchDiagnosisByCode(String code);
+
+    DiagnosisCIE searchDiagnosisByID(Long id);
 }

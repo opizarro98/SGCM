@@ -32,6 +32,7 @@ public class AntecedentsServiceImpl implements AntecedentsService {
         if (existingAntecedentOpt.isPresent()) {
             Antecedents existingAntecedent = existingAntecedentOpt.get();
             existingAntecedent.setDescription(antecedents.getDescription());
+            System.out.println("EL nuevo antecedentes es: " + existingAntecedent.getDescription());
             return antecedentsRepo.save(existingAntecedent);
         } else {
             throw new IllegalArgumentException("No se encontró el antecedente con el ID proporcionado.");

@@ -20,7 +20,7 @@ public class DiagnosisMapper {
             CategoriesCIE categoriesCIE) {
         DiagnosisPersonsIDDTO dto = new DiagnosisPersonsIDDTO();
         dto.setDiagnosisPerson(diagnosisPerson);
-        dto.setCategori(categoriesCIE);
+        dto.setIdCategory(categoriesCIE.getId());
         return dto;
     }
 }

@@ -42,4 +42,10 @@ public class DiagnosisCIEController {
     public ResponseEntity<DiagnosisCIE> searchDiagnosisForCode(@PathVariable String codeDiagnosis) {
         return ResponseEntity.ok().body(diagnosisService.searchDiagnosisByCode(codeDiagnosis));
     }
+
+    @GetMapping("/searchDiagnosisForID/{idDiagnosis}")
+    @ResponseBody
+    public ResponseEntity<DiagnosisCIE> searchDiagnosisForID(@PathVariable Long idDiagnosis) {
+        return ResponseEntity.ok().body(diagnosisService.searchDiagnosisByID(idDiagnosis));
+    }
 }

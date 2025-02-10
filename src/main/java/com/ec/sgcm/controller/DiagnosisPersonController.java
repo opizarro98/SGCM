@@ -14,6 +14,7 @@ import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.ec.sgcm.model.DiagnosisPerson;
+import com.ec.sgcm.model.dto.DiagnosisPersonsIDDTO;
 import com.ec.sgcm.services.DiagnosisPersonService;
 
 import java.util.List;
@@ -34,7 +35,7 @@ public class DiagnosisPersonController {
 
     @PutMapping("/updateDiagnosis")
     @ResponseBody
-    public ResponseEntity<DiagnosisPerson> updateDiagnosis(@RequestBody DiagnosisPerson Diagnosis) {
+    public ResponseEntity<DiagnosisPerson> updateDiagnosis(@RequestBody DiagnosisPersonsIDDTO Diagnosis) {
         return ResponseEntity.ok().body(DiagnosisPersonService.updateDiagnosisPerson(Diagnosis));
     }
 
@@ -46,7 +47,7 @@ public class DiagnosisPersonController {
 
     @GetMapping("/getDiagnosisPersonByPersonId/{idperson}")
     @ResponseBody
-    public ResponseEntity<DiagnosisPerson> getDiagnosisPersonByPersonId(@PathVariable Long idperson) {
+    public ResponseEntity<DiagnosisPersonsIDDTO> getDiagnosisPersonByPersonId(@PathVariable Long idperson) {
         return ResponseEntity.ok().body(DiagnosisPersonService.getDiagnosisPersonByPersonId(idperson));
     }
 
