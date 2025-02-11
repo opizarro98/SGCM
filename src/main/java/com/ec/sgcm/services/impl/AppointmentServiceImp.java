@@ -83,6 +83,7 @@ public class AppointmentServiceImp implements AppointmentService {
     @Override
     public List<AppointmentDTO> getAppointmentsTodaynotAttended() {
         LocalDate fechaActual = LocalDate.now();
+        System.out.println(fechaActual + "-----------------------------------");
         List<Appointments> appointments = appointmentRepo.findAppointmentTodayNotAttended(fechaActual);
         return appointments.stream()
                 .map(AppointmentMapper::toDTO)

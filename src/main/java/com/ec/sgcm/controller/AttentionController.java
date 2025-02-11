@@ -10,7 +10,9 @@ import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.ec.sgcm.model.Attentions;
+import com.ec.sgcm.model.dto.AnnualAttentionDTO;
 import com.ec.sgcm.services.AttentionService;
+import org.springframework.web.bind.annotation.GetMapping;
 
 @RestController
 @RequestMapping("/atentionRest")
@@ -24,6 +26,16 @@ public class AttentionController {
     @ResponseBody
     public ResponseEntity<Attentions> createNewAtention(@RequestBody Attentions antecedents) {
         return ResponseEntity.ok().body(attentionService.createNewAttentio(antecedents));
+    }
+
+    @GetMapping("/getAllAttentiononYear")
+    public ResponseEntity<AnnualAttentionDTO> getAllAttentiononYear() {
+        return ResponseEntity.ok().body(attentionService.getAllAttentiononYear());
+    }
+
+    @GetMapping("/annualAttendanceToMonth")
+    public ResponseEntity<?> annualAttendanceToMonth() {
+        return ResponseEntity.ok().body(attentionService.annualAttendanceToMonth());
     }
 
 }
