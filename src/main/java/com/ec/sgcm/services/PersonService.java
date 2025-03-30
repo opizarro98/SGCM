@@ -2,6 +2,7 @@ package com.ec.sgcm.services;
 
 import java.util.List;
 import com.ec.sgcm.model.Persons;
+import com.ec.sgcm.model.dto.PersonCompleteDTO;
 import com.ec.sgcm.model.dto.PersonListDTO;
 
 public interface PersonService {
@@ -14,4 +15,5 @@ public interface PersonService {
 
     Persons searchPersonByIdentification(String identification);
 
+    List<PersonCompleteDTO> buscarPorNombre(String nombre);
 }

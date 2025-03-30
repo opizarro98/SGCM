@@ -11,11 +11,13 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.ec.sgcm.error.ApiErrorResponse;
 import com.ec.sgcm.model.Persons;
+import com.ec.sgcm.model.dto.PersonCompleteDTO;
 import com.ec.sgcm.model.dto.PersonListDTO;
 import com.ec.sgcm.services.PersonService;
 
@@ -90,4 +92,11 @@ public class PersonController {
             return new ResponseEntity<>(errorResponse, HttpStatus.INTERNAL_SERVER_ERROR);
         }
     }
+
+    @GetMapping("/buscar")
+    public ResponseEntity<List<PersonCompleteDTO>> buscarPorNombre(@RequestParam String nombre) {
+        List<PersonCompleteDTO> personas = personService.buscarPorNombre(nombre);
+        return ResponseEntity.ok(personas);
+    }
+
 }

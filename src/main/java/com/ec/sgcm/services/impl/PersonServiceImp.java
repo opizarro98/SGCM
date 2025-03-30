@@ -7,6 +7,7 @@ import org.springframework.stereotype.Service;
 
 import java.util.stream.Collectors;
 import com.ec.sgcm.model.Persons;
+import com.ec.sgcm.model.dto.PersonCompleteDTO;
 import com.ec.sgcm.model.dto.PersonListDTO;
 import com.ec.sgcm.repository.PersonRepo;
 import com.ec.sgcm.services.PersonService;
@@ -60,5 +61,17 @@ public class PersonServiceImp implements PersonService {
             throw new EntityNotFoundException("Person not found with identification: " + identification);
         }
         return person;
+    }
+
+    @Override
+    public List<PersonCompleteDTO> buscarPorNombre(String nombre) {
+        List<Persons> personas = personRepo.findByFirstNameContainingIgnoreCase(nombre);
+        return personas.stream().map(person -> new PersonCompleteDTO(
+                person.getId(),
+                person.getIdentification(),
+                person.getFirstName(),
+                person.getLastName(),
+                person.getBirthDate(),
+                person.getOccupancy())).collect(Collectors.toList());
     }
 }

@@ -30,7 +30,7 @@ public class Appointments {
     private Long id;
 
     @ManyToOne
-    @JoinColumn(name = "person_id", nullable = false)
+    @JoinColumn(name = "person_id", nullable = true)
     @JsonBackReference // Marca esta relación como la referencia "hija"
     private Persons person;
 
